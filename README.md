@@ -1,3 +1,3 @@
-gistie
+Feedeng API Gem
 ======
 
