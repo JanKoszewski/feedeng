@@ -1,3 +1,3 @@
-Feedeng API Gem
+Feedeng.in API Gem
 ======
 
