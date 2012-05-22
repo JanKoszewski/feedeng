@@ -31,37 +31,64 @@ module Feedeng
       refeed_post("/feeds/#{feed_name}/posts/#{feed_item}/refeeds")
     end
 
+    def blank?(var)
+      if var.nil? || var.empty? || var == ' '
+        true
+      end
+    end
+
     private
 
     def get(url)
-      resp = connection.get do |req|
-        req.url url
-        req.headers['Content-Type'] = 'application/json'
-        req.headers['TOKEN'] = token
-      end
+      if blank?(@token)
+        response = 'You must set a user token via the \'set_token\' method before using the api'
+      else
+        resp = connection.get do |req|
+          req.url url
+          req.headers['Content-Type'] = 'application/json'
+          req.headers['TOKEN'] = token
+        end
 
-      JSON.parse(resp.body)
+        if resp.status == 401
+          resp.status
+        else
+          JSON.parse(resp.body)
+        end
+      end
     end
 
     def post(url, body)
-      resp = connection.post do |req|
-        req.url url
-        req.headers['Content-Type'] = 'application/json'
-        req.headers['TOKEN'] = token
-        req.body = body
-      end
+      if blank?(@token)
+        response = 'You must set a user token via the \'set_token\' method before using the api'
+      else
+        resp = connection.post do |req|
+          req.url url
+          req.headers['Content-Type'] = 'application/json'
+          req.headers['TOKEN'] = token
+          req.body = body
+        end
 
-      JSON.parse(resp.body)
+        if resp.status == 401
+          resp.status
+        else
+          JSON.parse(resp.body)
+        end
+      end
     end
 
     def refeed_post(url)
-      resp = connection.post do |req|
-        req.url url
-        req.headers['Content-Type'] = 'application/json'
-        req.headers['TOKEN'] = token
-      end
+      if blank?(@token)
+        response = 'You must set a user token via the \'set_token\' method before using the api'
+      else
+        resp = connection.post do |req|
+          req.url url
+          req.headers['Content-Type'] = 'application/json'
+          req.headers['TOKEN'] = token
+        end
 
-      resp.status
+        resp.status
+      end
     end
+
   end
 end
