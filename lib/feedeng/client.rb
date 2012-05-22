@@ -8,7 +8,7 @@ module Feedeng
     attr_accessor :token
 
     def initialize
-      @connection = Faraday.new(:url => 'http://api.lvh.me:3000')
+      @connection = Faraday.new(:url => 'http://api.feedeng.in')
     end
 
     def set_token(token)
