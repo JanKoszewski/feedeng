@@ -31,13 +31,13 @@ module Feedeng
       refeed_post("/feeds/#{feed_name}/posts/#{feed_item}/refeeds")
     end
 
+    private
+
     def blank?(var)
       if var.nil? || var.empty? || var == ' '
         true
       end
     end
-
-    private
 
     def get(url)
       if blank?(@token)
