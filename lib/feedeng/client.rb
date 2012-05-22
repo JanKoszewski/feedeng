@@ -8,7 +8,7 @@ module Feedeng
     attr_accessor :token
 
     def initialize
-      @connection = Faraday.new(:url => 'http://api.feedeng.in')
+      @connection = Faraday.new(:url => 'http://api.lvh.me:3000')
     end
 
     def set_token(token)
@@ -28,7 +28,7 @@ module Feedeng
     end
 
     def refeed(feed_name, feed_item)
-
+      refeed_post("/feeds/#{feed_name}/posts/#{feed_item}/refeeds")
     end
 
     private
@@ -52,6 +52,16 @@ module Feedeng
       end
 
       JSON.parse(resp.body)
+    end
+
+    def refeed_post(url)
+      resp = connection.post do |req|
+        req.url url
+        req.headers['Content-Type'] = 'application/json'
+        req.headers['TOKEN'] = token
+      end
+
+      resp.status
     end
   end
 end
