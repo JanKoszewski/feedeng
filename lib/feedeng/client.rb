@@ -15,6 +15,14 @@ module Feedeng
        @token = token
     end
 
+    def foo
+      "foo"
+    end
+
+    def bar
+      "bar"
+    end
+
     def get_user_feed(feed_name)
       get "/feeds/#{feed_name}"
     end
